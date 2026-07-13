@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOADOUT — Every AI tool is loot. Gear up.</title>
+<meta name="description" content="LOADOUT is a directory of 500+ AI tools, ranked and sorted like game loot. Browse by category and rarity, and build your loadout.">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="scanline" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="Loadout home">
+      <img src="logo.svg" alt="" class="brand-logo" width="34" height="34">
+      <span class="brand-name">LOAD<span class="brand-accent">OUT</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="#browse">Browse</a>
+      <a href="#categories">Categories</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#" id="myLoadoutLink">My Loadout <span class="pill-count" id="navSavedCount">0</span></a>
+    </nav>
+    <div class="header-actions">
+      <button class="btn btn-ghost" id="submitBtn">Submit a tool</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-badge">⚡ 500 tools catalogued · 25 categories · updated daily</div>
+      <h1 class="hero-title">Every AI tool is <span class="grad">loot</span>.<br>Find your <span class="grad2">loadout</span>.</h1>
+      <p class="hero-sub">The armory for AI. Search <strong id="heroCount">500</strong> tools ranked and sorted like game gear — filter by category, rarity, and price, then equip the ones you want.</p>
+      <form class="hero-search" id="heroSearchForm" role="search">
+        <span class="hero-search-icon">🔎</span>
+        <input type="search" id="heroSearch" placeholder="Search a task or tool… e.g. “write emails”, “clone my voice”, “Cursor”" autocomplete="off" aria-label="Search AI tools">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+      <div class="hero-suggests" id="heroSuggests" aria-label="Popular searches">
+        <span>Popular quests:</span>
+      </div>
+      <ul class="rarity-legend" aria-label="Rarity tiers">
+        <li class="r-legendary"><i></i>Legendary</li>
+        <li class="r-epic"><i></i>Epic</li>
+        <li class="r-rare"><i></i>Rare</li>
+        <li class="r-uncommon"><i></i>Uncommon</li>
+        <li class="r-common"><i></i>Common</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTROLS + RESULTS -->
+  <section class="browse" id="browse">
+    <div class="wrap">
+      <div class="chip-row" id="categoryChips" role="tablist" aria-label="Categories"></div>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <span class="result-count" id="resultCount">500 tools</span>
+        </div>
+        <div class="toolbar-right">
+          <label class="select-wrap">
+            <span>Rarity</span>
+            <select id="rarityFilter">
+              <option value="">All</option>
+              <option value="Legendary">Legendary</option>
+              <option value="Epic">Epic</option>
+              <option value="Rare">Rare</option>
+              <option value="Uncommon">Uncommon</option>
+              <option value="Common">Common</option>
+            </select>
+          </label>
+          <label class="select-wrap">
+            <span>Price</span>
+            <select id="priceFilter">
+              <option value="">All</option>
+              <option value="Free">Free</option>
+              <option value="Freemium">Freemium</option>
+              <option value="Free Trial">Free Trial</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </label>
+          <label class="select-wrap">
+            <span>Sort</span>
+            <select id="sortBy">
+              <option value="rank">Top ranked</option>
+              <option value="rating">Highest rated</option>
+              <option value="saves">Most saved</option>
+              <option value="new">Newest</option>
+              <option value="az">A–Z</option>
+            </select>
+          </label>
+          <button class="btn btn-ghost btn-sm" id="savedToggle" aria-pressed="false">★ Saved</button>
+        </div>
+      </div>
+
+      <div class="grid" id="toolGrid" aria-live="polite"></div>
+      <div class="empty" id="emptyState" hidden>
+        <div class="empty-emoji">🗺️</div>
+        <p>No loot matches that search. Try a different quest or clear your filters.</p>
+        <button class="btn btn-ghost" id="clearFilters">Clear filters</button>
+      </div>
+      <div class="load-more-wrap">
+        <button class="btn btn-outline" id="loadMore" hidden>Load more loot</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES OVERVIEW -->
+  <section class="categories" id="categories">
+    <div class="wrap">
+      <h2 class="section-title">Browse the <span class="grad">armory</span> by category</h2>
+      <p class="section-sub">25 categories, 20 tools each. Click a category to filter the grid above.</p>
+      <div class="cat-grid" id="catGrid"></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="cta" id="leaderboard">
+    <div class="wrap cta-inner">
+      <div>
+        <h2 class="section-title">Join the guild</h2>
+        <p class="section-sub">Get the weekly loot drop — the newest and highest-rated AI tools, straight to your inbox.</p>
+      </div>
+      <form class="cta-form" id="newsletterForm">
+        <input type="email" placeholder="you@example.com" aria-label="Email address" required>
+        <button class="btn btn-primary" type="submit">Get the drop</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <img src="logo.svg" alt="" width="30" height="30">
+      <div>
+        <div class="brand-name small">LOAD<span class="brand-accent">OUT</span></div>
+        <p class="footer-tag">Every AI tool is loot. Gear up.</p>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#browse">Browse</a>
+      <a href="#categories">Categories</a>
+      <a href="#top">Submit a tool</a>
+      <a href="#top">About</a>
+    </nav>
+    <p class="footer-legal">© <span id="year"></span> Loadout. A demo directory — tool names are trademarks of their respective owners. Built as a static site for GitHub Pages.</p>
+  </div>
+</footer>
+
+<!-- Drawer for a single tool -->
+<div class="drawer-backdrop" id="drawerBackdrop" hidden>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerName">
+    <button class="drawer-close" id="drawerClose" aria-label="Close">✕</button>
+    <div id="drawerContent"></div>
+  </aside>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

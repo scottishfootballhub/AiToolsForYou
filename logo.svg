@@ -1,0 +1,24 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loadout logo">
+  <defs>
+    <linearGradient id="lo-grad" x1="12" y1="8" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7c5cff"/>
+      <stop offset="0.55" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="lo-bolt" x1="46" y1="30" x2="78" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c7f2ff"/>
+    </linearGradient>
+    <filter id="lo-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- hex loot crate -->
+  <path d="M60 6 L106 32 V88 L60 114 L14 88 V32 Z"
+        fill="#10131c" stroke="url(#lo-grad)" stroke-width="5" stroke-linejoin="round" filter="url(#lo-glow)"/>
+  <!-- inner facet lines -->
+  <path d="M60 6 V40 M14 32 L60 40 L106 32 M60 40 V114" stroke="url(#lo-grad)" stroke-width="2" opacity="0.35"/>
+  <!-- power bolt -->
+  <path d="M66 28 L44 66 H58 L54 92 L78 52 H63 Z" fill="url(#lo-bolt)" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>
